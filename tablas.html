@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultiBoost - Tablas de Multiplicar</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            color: white;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .boton {
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+        
+        .boton:hover {
+            transform: scale(1.05);
+        }
+        
+        .boton-seleccionado {
+            background: #10b981;
+        }
+        
+        .opcion {
+            background: white;
+            color: black;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .opcion:hover {
+            background: #f0f0f0;
+        }
+        
+        .correcto {
+            background: #10b981 !important;
+            color: white !important;
+        }
+        
+        .incorrecto {
+            background: #ef4444 !important;
+            color: white !important;
+        }
+        
+        #timer {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .oculto {
+            display: none;
+        }
+        
+        .progreso {
+            width: 100%;
+            height: 20px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progreso-barra {
+            height: 100%;
+            background: #10b981;
+            width: 0%;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Pantalla de bienvenida -->
+        <div id="pantalla-bienvenida">
+            <h1>🎯 Tablas de Multiplicar</h1>
+            <p>¡Practica y mejora tus habilidades!</p>
+            <button onclick="mostrarConfiguracion()" class="boton">Comenzar</button>
+            <br><br>
+            <a href="index.html" class="boton" style="background: #6b7280;">← Volver al Inicio</a>
+        </div>
+        
+        <!-- Pantalla de configuración -->
+        <div id="pantalla-configuracion" class="oculto">
+            <h2>⚙️ Configura tu entrenamiento</h2>
+            
+            <h3>Selecciona las tablas:</h3>
+            <div id="tablas-grid">
+                <!-- Las tablas se generarán aquí -->
+            </div>
+            
+            <h3>Cantidad de ejercicios:</h3>
+            <div>
+                <button onclick="seleccionarCantidad(10)" class="boton" data-cantidad="10">10</button>
+                <button onclick="seleccionarCantidad(20)" class="boton" data-cantidad="20">20</button>
+                <button onclick="seleccionarCantidad(30)" class="boton" data-cantidad="30">30</button>
+            </div>
+            
+            <button onclick="iniciarEntrenamiento()" id="btn-iniciar" class="boton" disabled>💪 ¡Empezar!</button>
+        </div>
+        
+        <!-- Pantalla de ejercicios -->
+        <div id="pantalla-ejercicio" class="oculto">
+            <div class="progreso">
+                <div id="progreso-barra" class="progreso-barra"></div>
+            </div>
+            <p id="progreso-texto">Ejercicio 1 de 10</p>
+            
+            <div id="timer">10</div>
+            <h2 id="pregunta">2 × 3 = ?</h2>
+            
+            <div id="opciones">
+                <!-- Las opciones se generarán aquí -->
+            </div>
+            
+            <p>Correctas: <span id="correctas">0</span> | Incorrectas: <span id="incorrectas">0</span></p>
+        </div>
+        
+        <!-- Pantalla de resultados -->
+        <div id="pantalla-resultados" class="oculto">
+            <h1>🎉 ¡Entrenamiento Completado!</h1>
+            <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                <p>✅ Correctas: <span id="resultado-correctas">0</span></p>
+                <p>❌ Incorrectas: <span id="resultado-incorrectas">0</span></p>
+                <p>📊 Porcentaje: <span id="resultado-porcentaje">0</span>%</p>
+            </div>
+            <button onclick="reiniciar()" class="boton">🔄 Nuevo Entrenamiento</button>
+            <a href="index.html" class="boton" style="background: #6b7280;">🏠 Volver al Inicio</a>
+        </div>
+    </div>
+    
+    <script src="tablas-logica.js"></script>
+</body>
+</html>

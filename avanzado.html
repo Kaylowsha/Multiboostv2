@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultiBoost - Multiplicación Avanzada</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dc2626 0%, #7c2d12 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            color: white;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .boton {
+            background: #f59e0b;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+        
+        .boton:hover {
+            transform: scale(1.05);
+        }
+        
+        .oculto {
+            display: none;
+        }
+        
+        #respuesta-input {
+            font-size: 2rem;
+            padding: 15px;
+            border-radius: 15px;
+            border: 3px solid #f59e0b;
+            text-align: center;
+            width: 200px;
+            margin: 20px;
+        }
+        
+        .teclado {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+        
+        .tecla {
+            background: white;
+            color: black;
+            padding: 20px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tecla:hover {
+            background: #f0f0f0;
+        }
+        
+        .tecla-activa {
+            background: #10b981;
+            color: white;
+        }
+        
+        .progreso {
+            width: 100%;
+            height: 20px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progreso-barra {
+            height: 100%;
+            background: #10b981;
+            width: 0%;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Pantalla de bienvenida -->
+        <div id="pantalla-bienvenida">
+            <h1>🔥 Multiplicación Avanzada</h1>
+            <p>¡Desafía tu mente con números grandes!</p>
+            <button onclick="mostrarConfiguracion()" class="boton">Comenzar</button>
+            <br><br>
+            <a href="index.html" class="boton" style="background: #6b7280;">← Volver al Inicio</a>
+        </div>
+        
+        <!-- Pantalla de configuración -->
+        <div id="pantalla-configuracion" class="oculto">
+            <h2>⚙️ Configura tu entrenamiento</h2>
+            
+            <h3>Nivel de dificultad:</h3>
+            <button onclick="seleccionarNivel('2x1')" class="boton">📚 45 × 7</button>
+            <button onclick="seleccionarNivel('3x1')" class="boton">📖 147 × 8</button>
+            <button onclick="seleccionarNivel('4x1')" class="boton">🔥 2456 × 9</button>
+            <button onclick="seleccionarNivel('2x2')" class="boton">⚡ 47 × 23</button>
+            <button onclick="seleccionarNivel('3x2')" class="boton">🚀 147 × 25</button>
+            <button onclick="seleccionarNivel('mixto')" class="boton">🎲 Mixto</button>
+            
+            <h3>Cantidad de ejercicios:</h3>
+            <button onclick="seleccionarCantidad(10)" class="boton">10</button>
+            <button onclick="seleccionarCantidad(20)" class="boton">20</button>
+            <button onclick="seleccionarCantidad(30)" class="boton">30</button>
+            <button onclick="seleccionarCantidad('libre')" class="boton">🔓 Libre</button>
+            
+            <button onclick="iniciarEntrenamiento()" id="btn-iniciar" class="boton" disabled>💪 ¡Empezar!</button>
+        </div>
+        
+        <!-- Pantalla de ejercicios -->
+        <div id="pantalla-ejercicio" class="oculto">
+            <div class="progreso">
+                <div id="progreso-barra" class="progreso-barra"></div>
+            </div>
+            <p id="progreso-texto">Ejercicio 1 de 10</p>
+            
+            <h2 id="pregunta">147 × 23 = ?</h2>
+            
+            <input type="text" id="respuesta-input" placeholder="Tu respuesta" readonly>
+            
+            <div class="teclado">
+                <button class="tecla" onclick="agregarNumero('7')">7</button>
+                <button class="tecla" onclick="agregarNumero('8')">8</button>
+                <button class="tecla" onclick="agregarNumero('9')">9</button>
+                <button class="tecla" onclick="agregarNumero('4')">4</button>
+                <button class="tecla" onclick="agregarNumero('5')">5</button>
+                <button class="tecla" onclick="agregarNumero('6')">6</button>
+                <button class="tecla" onclick="agregarNumero('1')">1</button>
+                <button class="tecla" onclick="agregarNumero('2')">2</button>
+                <button class="tecla" onclick="agregarNumero('3')">3</button>
+                <button class="tecla" onclick="borrarNumero()">⌫</button>
+                <button class="tecla" onclick="agregarNumero('0')">0</button>
+                <button class="tecla tecla-activa" onclick="enviarRespuesta()">✓</button>
+            </div>
+            
+            <p>Correctas: <span id="correctas">0</span> | Incorrectas: <span id="incorrectas">0</span></p>
+            <p>Tiempo: <span id="tiempo">00:00</span></p>
+        </div>
+        
+        <!-- Pantalla de resultados -->
+        <div id="pantalla-resultados" class="oculto">
+            <h1>🎉 ¡Entrenamiento Completado!</h1>
+            <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                <p>✅ Correctas: <span id="resultado-correctas">0</span></p>
+                <p>❌ Incorrectas: <span id="resultado-incorrectas">0</span></p>
+                <p>📊 Porcentaje: <span id="resultado-porcentaje">0</span>%</p>
+                <p>⏱️ Tiempo total: <span id="resultado-tiempo">00:00</span></p>
+            </div>
+            <button onclick="reiniciar()" class="boton">🔄 Nuevo Entrenamiento</button>
+            <a href="index.html" class="boton" style="background: #6b7280;">🏠 Volver al Inicio</a>
+        </div>
+    </div>
+    
+    <script src="avanzado-logica.js"></script>
+</body>
+</html>

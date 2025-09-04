@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MultiBoost - Aplicación educativa para practicar multiplicaciones">
+    <title>MultiBoost - Potencia tu Mente</title>
+    
+    <!-- Estilos -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            color: white;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .boton {
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 20px;
+            transition: transform 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .boton:hover {
+            transform: translateY(-5px);
+        }
+        
+        .boton-secundario {
+            background: linear-gradient(135deg, #48cae4, #0077be);
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 3rem; }
+            .boton { font-size: 1.2rem; padding: 15px 30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ MultiBoost ⚡</h1>
+        <p style="font-size: 1.5rem; margin-bottom: 40px;">¡Potencia tu mente con las multiplicaciones!</p>
+        
+        <a href="tablas.html" class="boton">🎯 Tablas de Multiplicar</a>
+        <a href="avanzado.html" class="boton boton-secundario">🔥 Multiplicación Avanzada</a>
+        
+        <p style="margin-top: 60px; opacity: 0.8;">Para estudiantes de 4° a 8° básico</p>
+    </div>
+</body>
+</html>
